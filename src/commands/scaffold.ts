@@ -22,4 +22,14 @@ export async function scaffoldCommand(projectName?: string) {
             ],
         }
     ]);
+
+    const finalName = projectName || response.name;
+    const template = response.template;
+
+    if (!finalName || !template) {
+        console.log(chalk.red('Process cancelled.'));
+        ProcessingInstruction.exit(1);
+    }
+
+    console.log(chalk.green(`\n Ready to generate '${template}' in ./${finalName}`));
 }
