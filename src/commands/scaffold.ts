@@ -28,7 +28,7 @@ export async function scaffoldCommand(projectName?: string) {
 
     if (!finalName || !template) {
         console.log(chalk.red('Process cancelled.'));
-        ProcessingInstruction.exit(1);
+        process.exit(1);
     }
 
     console.log(chalk.green(`\n Ready to generate '${template}' in ./${finalName}`));
