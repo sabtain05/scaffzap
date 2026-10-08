@@ -1,0 +1,34 @@
+{
+  "name": "scaffzap",
+  "version": "1.0.0",
+  "description": "Instantly generate project boilerplate and convert data structures.",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "bin": {
+    "scaffzap": "./dist/cli.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "dev": "tsx src/cli.ts",
+    "build": "tsup",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": ["cli", "boilerplate", "scaffold", "generator", "converter"],
+  "author": "Sabtain Ali",
+  "license": "MIT",
+  "dependencies": {
+    "chalk": "^4.1.2",
+    "commander": "^11.1.0",
+    "prompts": "^2.4.2"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@types/prompts": "^2.4.9",
+    "tsup": "^8.0.2",
+    "tsx": "^4.7.1",
+    "typescript": "^5.4.5"
+  }
+}
