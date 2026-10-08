@@ -16,7 +16,13 @@
     "build": "tsup",
     "prepublishOnly": "npm run build"
   },
-  "keywords": ["cli", "boilerplate", "scaffold", "generator", "converter"],
+  "keywords": [
+    "cli",
+    "boilerplate",
+    "scaffold",
+    "generator",
+    "converter"
+  ],
   "author": "Sabtain Ali",
   "license": "MIT",
   "dependencies": {
