@@ -4,6 +4,7 @@ import fs from 'fs';
 import path from 'path';
 import { jsonToMarkdown } from '../converters/json-to-md';
 import { jsonToSql } from '../converters/json-to-sql';
+import { jsonToTsInterface } from '../converters/json-to-ts';
 
 export async function convertCommand(inputFile?: string) {
   console.log(chalk.magenta.bold('\nScaffzap: Data Converter\n'));
@@ -12,7 +13,7 @@ export async function convertCommand(inputFile?: string) {
     {
       type: inputFile ? null : 'text',
       name: 'input',
-      message: 'Enter the path to your input file (e.g., data.json):',
+      message: 'Enter the path to your input JSON file (e.g., data.json):',
     },
     {
       type: 'select',
@@ -21,6 +22,7 @@ export async function convertCommand(inputFile?: string) {
       choices: [
         { title: 'Markdown Table', value: 'markdown' },
         { title: 'SQL Insert Statements', value: 'sql' },
+        { title: 'TypeScript Interfaces', value: 'ts-interface' },
       ],
     }
   ]);
@@ -58,6 +60,9 @@ export async function convertCommand(inputFile?: string) {
     } else if (format === 'sql') {
       outputContent = jsonToSql(jsonData);
       outputExtension = '.sql';
+    } else if (format === 'ts-interface') {
+      outputContent = jsonToTsInterface(jsonData, 'MyDataInterface');
+      outputExtension = '.ts';
     }
 
     const parsedPath = path.parse(inputPath);
@@ -66,7 +71,7 @@ export async function convertCommand(inputFile?: string) {
     fs.writeFileSync(outputPath, outputContent, 'utf8');
 
     console.log(chalk.green.bold(`\nSuccess! File converted successfully.`));
-    console.log(chalk.cyan(`Saved to: ${outputPath}\n`));
+    console.log(chalk.cyan(`➔ Saved to: ${outputPath}\n`));
 
   } catch (error: any) {
     console.log(chalk.red(`\nError processing file: ${error.message}`));

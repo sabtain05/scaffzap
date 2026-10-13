@@ -9,8 +9,8 @@
 
 ## Features
 
-- **Interactive Scaffolding:** Generate ready-to-code project boilerplates (e.g., Express + TypeScript) with a single command.
-- **Data Conversion Engine:** Instantly translate JSON arrays into Markdown tables or SQL insert statements.
+- **Interactive Scaffolding:** Generate ready-to-code project boilerplates with a single command. Currently supports Express, React + Tailwind (Vite), and Node CLI setups.
+- **Data Conversion Engine:** Instantly translate JSON arrays into Markdown tables, SQL insert statements, or TypeScript Interfaces.
 - **Hybrid Architecture:** Use it globally as a CLI tool or install it locally as an importable utility library in your Node.js/TypeScript projects.
 - **Zero-Config:** No massive configuration files required. Just run it and answer the prompts.
 
@@ -40,15 +40,19 @@ Run the `create` command to start the interactive project generator:
 ```bash
 scaffzap create
 # OR skip the first prompt by passing a name:
-scaffzap create my-awesome-api
+scaffzap create my-awesome-app
 
 ```
 
-*Current available templates: Express + TypeScript*
+**Current Available Templates:**
+
+* 🟢 Express + TypeScript
+* ⚛️ React + Tailwind (Vite)
+* 🛠️ Node CLI (TypeScript + Commander)
 
 ### 2. Convert Data Files
 
-Run the `convert` command to translate data structures (e.g., JSON to Markdown/SQL):
+Run the `convert` command to translate data structures:
 
 ```bash
 scaffzap convert
@@ -57,31 +61,55 @@ scaffzap convert ./data/users.json
 
 ```
 
+**Current Available Converters:**
+
+* 📝 JSON ➔ Markdown Table
+* 🗄️ JSON ➔ SQL Insert Statements
+* 🟦 JSON ➔ TypeScript Interfaces
+
 ## Library Usage (API)
 
 Scaffzap exports its core engines so you can build your own automation tools. It supports both CommonJS and ES Modules.
 
 ```typescript
-import { jsonToMarkdown, jsonToSql, getExpressTsTemplate } from 'scaffzap';
+import { 
+  jsonToMarkdown, 
+  jsonToSql, 
+  jsonToTsInterface,
+  getExpressTsTemplate,
+  getReactTailwindTemplate,
+  getNodeCliTemplate
+} from 'scaffzap';
 
-// Example: Converting JSON to a Markdown Table
+// --- CONVERTER EXAMPLES ---
 const data = [
-  { id: 1, name: "Jane", role: "Engineer" },
-  { id: 2, name: "Alex", role: "Designer" }
+  { id: 1, name: "Sabtain", role: "Engineer", active: true },
+  { id: 2, name: "Alex", role: "Designer", active: false }
 ];
 
-const markdownTable = jsonToMarkdown(data);
-console.log(markdownTable);
+// 1. JSON to Markdown Table
+console.log(jsonToMarkdown(data));
 
-// Example: Converting JSON to SQL Insert Statements
-const sqlStatements = jsonToSql(data, 'users_table');
-console.log(sqlStatements);
+// 2. JSON to SQL Insert Statements
+console.log(jsonToSql(data, 'users_table'));
 
-// Example: Fetching Boilerplate File Structures
-const files = getExpressTsTemplate('my-api');
+// 3. JSON to TypeScript Interface
+console.log(jsonToTsInterface(data, 'User')); 
+/* Outputs:
+export interface User {
+  id: number;
+  name: string;
+  role: string;
+  active: boolean;
+}
+*/
+
+// --- TEMPLATE EXAMPLES ---
+// Fetching Boilerplate File Structures
+const files = getReactTailwindTemplate('my-frontend');
 files.forEach(file => {
   console.log(`Path: ${file.path}`);
-  // file.content contains the raw string content of the boilerplate file
+  // file.content contains the raw string content of the file
 });
 
 ```
@@ -89,7 +117,7 @@ files.forEach(file => {
 ## Contributing
 
 Contributions, issues, and feature requests are welcome!
-Check out our [Contributing Guide](https://www.google.com/search?q=CONTRIBUTING.md) and [Code of Conduct](https://www.google.com/search?q=CODE_OF_CONDUCT.md) if you want to help add more templates (like React, Next.js, or Go) or new data converters.
+Check out our [Contributing Guide](https://www.google.com/search?q=CONTRIBUTING.md) and [Code of Conduct](https://www.google.com/search?q=CODE_OF_CONDUCT.md) if you want to help add more templates (like Next.js or Go) or new data converters.
 
 ## Security
 

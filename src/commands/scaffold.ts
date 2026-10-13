@@ -3,6 +3,8 @@ import chalk from 'chalk';
 import fs from 'fs';
 import path from 'path';
 import { getExpressTsTemplate } from '../templates/express-ts';
+import { getReactTailwindTemplate } from '../templates/react-tailwind';
+import { getNodeCliTemplate } from '../templates/node-cli';
 
 export async function scaffoldCommand(projectName?: string) {
   console.log(chalk.blue.bold('\nScaffzap: Let\'s build something fast.\n'));
@@ -20,8 +22,8 @@ export async function scaffoldCommand(projectName?: string) {
       message: 'Which boilerplate do you want to generate?',
       choices: [
         { title: 'Express + TypeScript', value: 'express-ts' },
-        { title: 'Node CLI (Coming soon)', value: 'node-cli' },
-        { title: 'React + Tailwind (Coming soon)', value: 'react-tailwind' },
+        { title: 'Node CLI (TypeScript + Commander)', value: 'node-cli' },
+        { title: 'React + Tailwind (Vite)', value: 'react-tailwind' },
       ],
     }
   ]);
@@ -50,15 +52,17 @@ export async function scaffoldCommand(projectName?: string) {
   
   if (template === 'express-ts') {
     filesToCreate = getExpressTsTemplate(finalName);
-  } else {
-    console.log(chalk.yellow(`\nTemplate '${template}' is under construction!`));
-    process.exit(0);
+  } else if (template === 'react-tailwind') {
+    filesToCreate = getReactTailwindTemplate(finalName);
+  } else if (template === 'node-cli') {
+    filesToCreate = getNodeCliTemplate(finalName);
   }
 
   filesToCreate.forEach((file) => {
     const fullPath = path.join(targetPath, file.path);
+    fs.mkdirSync(path.dirname(fullPath), { recursive: true });
     fs.writeFileSync(fullPath, file.content, 'utf8');
-    console.log(chalk.gray(`Created: ${file.path}`));
+    console.log(chalk.gray(`  Created: ${file.path}`));
   });
 
   console.log(chalk.green.bold(`\nSuccess! Your project is ready.`));

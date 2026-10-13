@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.5.0] - 2026-10-13
+
+### Added
+- **TypeScript Interface Converter:** Added `jsonToTsInterface` to the `convert` command to automatically generate TypeScript interfaces from JSON data.
+- **React + Tailwind Template:** Added Vite-powered React and Tailwind CSS boilerplate to the `create` command.
+- **Node CLI Template:** Added a commander/tsup boilerplate to the `create` command for instantly building new CLI tools.
+- Exported all new templates and converters in the main library entry point.
+
 ## [1.0.0] - 2026-10-09
 
 ### Added
