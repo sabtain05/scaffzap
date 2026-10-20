@@ -48,12 +48,12 @@ scaffzap create my-awesome-app
 
 **Current Available Templates:**
 
-* 🟢 Express + TypeScript
-* ⚛️ React + Tailwind (Vite)
-* 🛠️ Node CLI (TypeScript + Commander)
-* ⬛ Next.js (App Router)
-* 🟩 Vue 3 (Vite)
-* 🐹 Go REST API (Fiber)
+* Express + TypeScript
+* React + Tailwind (Vite)
+* Node CLI (TypeScript + Commander)
+* Next.js (App Router)
+* Vue 3 (Vite)
+* Go REST API (Fiber)
 
 *Note: Scaffzap will automatically prompt you to initialize Git and install your dependencies!*
 
