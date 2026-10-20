@@ -6,6 +6,9 @@ import { execSync } from 'child_process';
 import { getExpressTsTemplate } from '../templates/express-ts';
 import { getReactTailwindTemplate } from '../templates/react-tailwind';
 import { getNodeCliTemplate } from '../templates/node-cli';
+import { getNextJsTemplate } from '../templates/nextjs';
+import { getVue3Template } from '../templates/vue3';
+import { getGoFiberTemplate } from '../templates/go-fiber';
 
 export async function scaffoldCommand(projectName?: string) {
   console.log(chalk.blue.bold('\nScaffzap: Let\'s build something fast.\n'));
@@ -25,6 +28,9 @@ export async function scaffoldCommand(projectName?: string) {
         { title: 'Express + TypeScript', value: 'express-ts' },
         { title: 'Node CLI (TypeScript + Commander)', value: 'node-cli' },
         { title: 'React + Tailwind (Vite)', value: 'react-tailwind' },
+        { title: 'Next.js (App Router)', value: 'nextjs' },
+        { title: 'Vue 3 (Vite)', value: 'vue3' },
+        { title: 'Go REST API (Fiber)', value: 'go-fiber' },
       ],
     },
     {
@@ -34,7 +40,7 @@ export async function scaffoldCommand(projectName?: string) {
       initial: true
     },
     {
-      type: 'select',
+      type: (prev, values) => values.template === 'go-fiber' ? null : 'select',
       name: 'pkgManager',
       message: 'Which package manager do you want to use for installation?',
       choices: [
@@ -61,20 +67,19 @@ export async function scaffoldCommand(projectName?: string) {
     process.exit(1);
   }
 
-  console.log(chalk.green(`\n➔ Generating '${template}' in ./${finalName}...`));
+  console.log(chalk.green(`\nGenerating '${template}' in ./${finalName}...`));
 
   fs.mkdirSync(targetPath, { recursive: true });
   fs.mkdirSync(path.join(targetPath, 'src'), { recursive: true });
 
   let filesToCreate: { path: string; content: string }[] = [];
   
-  if (template === 'express-ts') {
-    filesToCreate = getExpressTsTemplate(finalName);
-  } else if (template === 'react-tailwind') {
-    filesToCreate = getReactTailwindTemplate(finalName);
-  } else if (template === 'node-cli') {
-    filesToCreate = getNodeCliTemplate(finalName);
-  }
+  if (template === 'express-ts') filesToCreate = getExpressTsTemplate(finalName);
+  else if (template === 'react-tailwind') filesToCreate = getReactTailwindTemplate(finalName);
+  else if (template === 'node-cli') filesToCreate = getNodeCliTemplate(finalName);
+  else if (template === 'nextjs') filesToCreate = getNextJsTemplate(finalName);
+  else if (template === 'vue3') filesToCreate = getVue3Template(finalName);
+  else if (template === 'go-fiber') filesToCreate = getGoFiberTemplate(finalName);
 
   filesToCreate.forEach((file) => {
     const fullPath = path.join(targetPath, file.path);
@@ -83,20 +88,24 @@ export async function scaffoldCommand(projectName?: string) {
   });
   console.log(chalk.gray(`  Created ${filesToCreate.length} files.`));
 
-
   if (git) {
     try {
       console.log(chalk.gray('  Initializing Git repository...'));
       execSync('git init', { cwd: targetPath, stdio: 'ignore' });
-
-      fs.writeFileSync(path.join(targetPath, '.gitignore'), 'node_modules\ndist\n.env\n', 'utf8');
+      fs.writeFileSync(path.join(targetPath, '.gitignore'), 'node_modules\ndist\n.env\n.next\n', 'utf8');
     } catch (error) {
       console.log(chalk.yellow('  Warning: Failed to initialize Git.'));
     }
   }
 
-
-  if (pkgManager !== 'skip') {
+  if (template === 'go-fiber') {
+    try {
+      console.log(chalk.blue(`\nInitializing Go modules...`));
+      execSync(`go mod tidy`, { cwd: targetPath, stdio: 'inherit' });
+    } catch (error) {
+      console.log(chalk.red(`\nFailed to run go mod tidy. Ensure Go is installed.`));
+    }
+  } else if (pkgManager !== 'skip') {
     try {
       console.log(chalk.blue(`\nInstalling dependencies using ${pkgManager}... this might take a moment.`));
       execSync(`${pkgManager} install`, { cwd: targetPath, stdio: 'inherit' });
@@ -106,10 +115,4 @@ export async function scaffoldCommand(projectName?: string) {
   }
 
   console.log(chalk.green.bold(`\nSuccess! Your project is ready.`));
-  
-  console.log(chalk.cyan(`\nNext steps:\n  cd ${finalName}`));
-  if (pkgManager === 'skip') {
-    console.log(chalk.cyan(`  npm install`));
-  }
-  console.log(chalk.cyan(`  npm run dev\n`));
 }
