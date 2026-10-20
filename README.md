@@ -70,13 +70,13 @@ scaffzap convert ./data/users.json
 
 **Current Available Converters:**
 
-* 📝 JSON ➔ Markdown Table
-* 🗄️ JSON ➔ SQL Insert Statements
-* 🟦 JSON ➔ TypeScript Interfaces
-* 🟣 JSON ➔ GraphQL Types
-* ◭ JSON ➔ Prisma Schema
+* JSON ➔ Markdown Table
+* JSON ➔ SQL Insert Statements
+* JSON ➔ TypeScript Interfaces
+* JSON ➔ GraphQL Types
+* JSON ➔ Prisma Schema
 
-## 🧩 Library Usage (API)
+## Library Usage (API)
 
 Scaffzap exports its core engines so you can build your own automation tools. It supports both CommonJS and ES Modules.
 
