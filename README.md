@@ -8,15 +8,15 @@
 
 ---
 
-## ✨ Features
+## Features
 
-- **🚀 Interactive Scaffolding:** Generate ready-to-code project boilerplates with a single command. Supports Express, React, Next.js, Vue, Go Fiber, and more.
-- **🤖 Post-Generation Automation:** Automatically initializes Git repositories and installs dependencies (`npm`, `yarn`, `pnpm`, or `go mod`) so you can start coding immediately.
-- **🔄 Data Conversion Engine:** Instantly translate JSON arrays into Markdown tables, SQL statements, TypeScript Interfaces, GraphQL Types, or Prisma Schemas.
-- **🛠️ Hybrid Architecture:** Use it globally as a CLI tool or install it locally as an importable utility library in your Node.js/TypeScript projects.
-- **📦 Zero-Config:** No massive configuration files required. Just run it and answer the prompts.
+- **Interactive Scaffolding:** Generate ready-to-code project boilerplates with a single command. Supports Express, React, Next.js, Vue, Go Fiber, and more.
+- **Post-Generation Automation:** Automatically initializes Git repositories and installs dependencies (`npm`, `yarn`, `pnpm`, or `go mod`) so you can start coding immediately.
+- **Data Conversion Engine:** Instantly translate JSON arrays into Markdown tables, SQL statements, TypeScript Interfaces, GraphQL Types, or Prisma Schemas.
+- **Hybrid Architecture:** Use it globally as a CLI tool or install it locally as an importable utility library in your Node.js/TypeScript projects.
+- **Zero-Config:** No massive configuration files required. Just run it and answer the prompts.
 
-## 📦 Installation
+## Installation
 
 ### As a Global CLI (Recommended for terminal use)
 ```bash
@@ -31,7 +31,7 @@ npm install scaffzap
 
 ```
 
-## 💻 CLI Usage
+## CLI Usage
 
 Once installed globally, you can run `scaffzap` from anywhere in your terminal.
 
