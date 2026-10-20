@@ -6,6 +6,9 @@ export { jsonToMarkdown } from './converters/json-to-md';
 export { jsonToSql } from './converters/json-to-sql';
 export { jsonToTsInterface } from './converters/json-to-ts';
 export { convertCommand } from './commands/convert';
+export { getNextJsTemplate } from './templates/nextjs';
+export { getVue3Template } from './templates/vue3';
+export { getGoFiberTemplate } from './templates/go-fiber';
 
 
 console.log("Scaffzap Library Loaded!");
