@@ -1,5 +1,4 @@
-```markdown
-# ⚡ Scaffzap
+# Scaffzap
 
 [![npm version](https://img.shields.io/npm/v/scaffzap.svg)](https://www.npmjs.com/package/scaffzap)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
