@@ -9,6 +9,8 @@ export { convertCommand } from './commands/convert';
 export { getNextJsTemplate } from './templates/nextjs';
 export { getVue3Template } from './templates/vue3';
 export { getGoFiberTemplate } from './templates/go-fiber';
+export { jsonToGraphql } from './converters/json-to-graphql';
+export { jsonToPrisma } from './converters/json-to-prisma';
 
 
 console.log("Scaffzap Library Loaded!");
