@@ -1,20 +1,22 @@
-# Scaffzap
+```markdown
+# ⚡ Scaffzap
 
 [![npm version](https://img.shields.io/npm/v/scaffzap.svg)](https://www.npmjs.com/package/scaffzap)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-**Scaffzap** is a lightning-fast, hybrid CLI tool and Node.js library designed to eliminate boilerplate fatigue. Instantly scaffold pre-configured projects and convert data structures on the fly directly from your terminal or within your own code.
+**Scaffzap** is a lightning-fast, hybrid CLI tool and Node.js library designed to eliminate boilerplate fatigue. Instantly scaffold pre-configured projects, automate initial setup, and convert data structures on the fly directly from your terminal or within your own code.
 
 ---
 
-## Features
+## ✨ Features
 
-- **Interactive Scaffolding:** Generate ready-to-code project boilerplates with a single command. Currently supports Express, React + Tailwind (Vite), and Node CLI setups.
-- **Data Conversion Engine:** Instantly translate JSON arrays into Markdown tables, SQL insert statements, or TypeScript Interfaces.
-- **Hybrid Architecture:** Use it globally as a CLI tool or install it locally as an importable utility library in your Node.js/TypeScript projects.
-- **Zero-Config:** No massive configuration files required. Just run it and answer the prompts.
+- **🚀 Interactive Scaffolding:** Generate ready-to-code project boilerplates with a single command. Supports Express, React, Next.js, Vue, Go Fiber, and more.
+- **🤖 Post-Generation Automation:** Automatically initializes Git repositories and installs dependencies (`npm`, `yarn`, `pnpm`, or `go mod`) so you can start coding immediately.
+- **🔄 Data Conversion Engine:** Instantly translate JSON arrays into Markdown tables, SQL statements, TypeScript Interfaces, GraphQL Types, or Prisma Schemas.
+- **🛠️ Hybrid Architecture:** Use it globally as a CLI tool or install it locally as an importable utility library in your Node.js/TypeScript projects.
+- **📦 Zero-Config:** No massive configuration files required. Just run it and answer the prompts.
 
-## Installation
+## 📦 Installation
 
 ### As a Global CLI (Recommended for terminal use)
 ```bash
@@ -29,7 +31,7 @@ npm install scaffzap
 
 ```
 
-## CLI Usage
+## 💻 CLI Usage
 
 Once installed globally, you can run `scaffzap` from anywhere in your terminal.
 
@@ -49,6 +51,11 @@ scaffzap create my-awesome-app
 * 🟢 Express + TypeScript
 * ⚛️ React + Tailwind (Vite)
 * 🛠️ Node CLI (TypeScript + Commander)
+* ⬛ Next.js (App Router)
+* 🟩 Vue 3 (Vite)
+* 🐹 Go REST API (Fiber)
+
+*Note: Scaffzap will automatically prompt you to initialize Git and install your dependencies!*
 
 ### 2. Convert Data Files
 
@@ -66,47 +73,44 @@ scaffzap convert ./data/users.json
 * 📝 JSON ➔ Markdown Table
 * 🗄️ JSON ➔ SQL Insert Statements
 * 🟦 JSON ➔ TypeScript Interfaces
+* 🟣 JSON ➔ GraphQL Types
+* ◭ JSON ➔ Prisma Schema
 
-## Library Usage (API)
+## 🧩 Library Usage (API)
 
 Scaffzap exports its core engines so you can build your own automation tools. It supports both CommonJS and ES Modules.
 
 ```typescript
 import { 
-  jsonToMarkdown, 
-  jsonToSql, 
+  jsonToPrisma,
+  jsonToGraphql,
   jsonToTsInterface,
-  getExpressTsTemplate,
-  getReactTailwindTemplate,
-  getNodeCliTemplate
+  getNextJsTemplate,
+  getGoFiberTemplate
 } from 'scaffzap';
 
 // --- CONVERTER EXAMPLES ---
 const data = [
   { id: 1, name: "Sabtain", role: "Engineer", active: true },
-  { id: 2, name: "Alex", role: "Designer", active: false }
 ];
 
-// 1. JSON to Markdown Table
-console.log(jsonToMarkdown(data));
-
-// 2. JSON to SQL Insert Statements
-console.log(jsonToSql(data, 'users_table'));
-
-// 3. JSON to TypeScript Interface
-console.log(jsonToTsInterface(data, 'User')); 
+// 1. JSON to Prisma Schema
+console.log(jsonToPrisma(data, 'User')); 
 /* Outputs:
-export interface User {
-  id: number;
-  name: string;
-  role: string;
-  active: boolean;
+model User {
+  id Int @id @default(autoincrement())
+  name String
+  role String
+  active Boolean
 }
 */
 
+// 2. JSON to GraphQL Type
+console.log(jsonToGraphql(data, 'UserType'));
+
 // --- TEMPLATE EXAMPLES ---
-// Fetching Boilerplate File Structures
-const files = getReactTailwindTemplate('my-frontend');
+// Fetching Boilerplate File Structures programmatically
+const files = getNextJsTemplate('my-frontend');
 files.forEach(file => {
   console.log(`Path: ${file.path}`);
   // file.content contains the raw string content of the file
@@ -114,10 +118,10 @@ files.forEach(file => {
 
 ```
 
-## Contributing
+## 🤝 Contributing
 
 Contributions, issues, and feature requests are welcome!
-Check out our [Contributing Guide](https://www.google.com/search?q=CONTRIBUTING.md) and [Code of Conduct](https://www.google.com/search?q=CODE_OF_CONDUCT.md) if you want to help add more templates (like Next.js or Go) or new data converters.
+Check out our [Contributing Guide](https://www.google.com/search?q=CONTRIBUTING.md) and [Code of Conduct](https://www.google.com/search?q=CODE_OF_CONDUCT.md) if you want to help add more templates or new data converters.
 
 ## Security
 
