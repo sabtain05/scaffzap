@@ -5,6 +5,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.6.0] - 2026-10-20
+
+### Added
+- **Post-Generation Automation**: Automatically runs `git init`, generates a `.gitignore`, and installs dependencies (`npm`, `yarn`, `pnpm`, or `go mod tidy`) immediately after project scaffolding.
+- **Dynamic Sub-prompts**: Added interactive prompts during the `create` flow to ask for Git initialization preferences and package manager selection.
+- **New Project Templates**: Added native support for:
+  - Next.js (App Router)
+  - Vue 3 (Vite)
+  - Go REST API (Fiber)
+- **New Data Converters**: Added support for generating schema files from JSON data:
+  - JSON to GraphQL Types (`.graphql`)
+  - JSON to Prisma Schema (`.prisma`)
+- Exported all new templates and converters (`getNextJsTemplate`, `getVue3Template`, `getGoFiberTemplate`, `jsonToGraphql`, `jsonToPrisma`) via the main library API.
+
 ## [1.5.0] - 2026-10-13
 
 ### Added
