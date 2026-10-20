@@ -2,6 +2,7 @@ import prompts from 'prompts';
 import chalk from 'chalk';
 import fs from 'fs';
 import path from 'path';
+import { execSync } from 'child_process';
 import { getExpressTsTemplate } from '../templates/express-ts';
 import { getReactTailwindTemplate } from '../templates/react-tailwind';
 import { getNodeCliTemplate } from '../templates/node-cli';
@@ -25,11 +26,28 @@ export async function scaffoldCommand(projectName?: string) {
         { title: 'Node CLI (TypeScript + Commander)', value: 'node-cli' },
         { title: 'React + Tailwind (Vite)', value: 'react-tailwind' },
       ],
+    },
+    {
+      type: 'confirm',
+      name: 'git',
+      message: 'Initialize a new Git repository?',
+      initial: true
+    },
+    {
+      type: 'select',
+      name: 'pkgManager',
+      message: 'Which package manager do you want to use for installation?',
+      choices: [
+        { title: 'npm', value: 'npm' },
+        { title: 'yarn', value: 'yarn' },
+        { title: 'pnpm', value: 'pnpm' },
+        { title: 'Skip installation', value: 'skip' }
+      ],
     }
   ]);
 
   const finalName = projectName || response.name;
-  const template = response.template;
+  const { template, git, pkgManager } = response;
 
   if (!finalName || !template) {
     console.log(chalk.red('Process cancelled.'));
@@ -43,7 +61,7 @@ export async function scaffoldCommand(projectName?: string) {
     process.exit(1);
   }
 
-  console.log(chalk.green(`\nGenerating '${template}' in ./${finalName}...`));
+  console.log(chalk.green(`\n➔ Generating '${template}' in ./${finalName}...`));
 
   fs.mkdirSync(targetPath, { recursive: true });
   fs.mkdirSync(path.join(targetPath, 'src'), { recursive: true });
@@ -62,9 +80,36 @@ export async function scaffoldCommand(projectName?: string) {
     const fullPath = path.join(targetPath, file.path);
     fs.mkdirSync(path.dirname(fullPath), { recursive: true });
     fs.writeFileSync(fullPath, file.content, 'utf8');
-    console.log(chalk.gray(`  Created: ${file.path}`));
   });
+  console.log(chalk.gray(`  Created ${filesToCreate.length} files.`));
+
+
+  if (git) {
+    try {
+      console.log(chalk.gray('  Initializing Git repository...'));
+      execSync('git init', { cwd: targetPath, stdio: 'ignore' });
+
+      fs.writeFileSync(path.join(targetPath, '.gitignore'), 'node_modules\ndist\n.env\n', 'utf8');
+    } catch (error) {
+      console.log(chalk.yellow('  Warning: Failed to initialize Git.'));
+    }
+  }
+
+
+  if (pkgManager !== 'skip') {
+    try {
+      console.log(chalk.blue(`\nInstalling dependencies using ${pkgManager}... this might take a moment.`));
+      execSync(`${pkgManager} install`, { cwd: targetPath, stdio: 'inherit' });
+    } catch (error) {
+      console.log(chalk.red(`\nFailed to install dependencies. You can run '${pkgManager} install' manually later.`));
+    }
+  }
 
   console.log(chalk.green.bold(`\nSuccess! Your project is ready.`));
-  console.log(chalk.cyan(`\nNext steps:\n  cd ${finalName}\n  npm install\n  npm run dev\n`));
+  
+  console.log(chalk.cyan(`\nNext steps:\n  cd ${finalName}`));
+  if (pkgManager === 'skip') {
+    console.log(chalk.cyan(`  npm install`));
+  }
+  console.log(chalk.cyan(`  npm run dev\n`));
 }
