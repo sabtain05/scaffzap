@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.0.0] - 2026-10-21
+
+### Added
+- **"Bring Your Own Boilerplate" (BYOB):** The CLI now dynamically scans `~/.scaffzap/templates` for custom user templates and injects them into the `create` menu.
+- **Remote Scaffolding:** Added the ability to clone any public GitHub repository directly from the CLI, stripping original `.git` history for a clean slate.
+- **Universal Data Parser:** The converter engine now natively supports parsing `.csv` and `.yaml` files, alongside `.json`.
+- **JSON Output Format:** Added the ability to standardize `.csv` and `.yaml` files into structured JSON arrays.
+
 ## [1.6.0] - 2026-10-20
 
 ### Added
