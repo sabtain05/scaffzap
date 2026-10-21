@@ -1,23 +1,19 @@
-```markdown
-# ⚡ Scaffzap
-
-[![npm version](https://img.shields.io/npm/v/scaffzap.svg)](https://www.npmjs.com/package/scaffzap)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+# Scaffzap
 
 **Scaffzap** is a lightning-fast, hybrid CLI tool and Node.js library designed to eliminate boilerplate fatigue. Instantly scaffold pre-configured projects, clone repositories, and convert data structures on the fly directly from your terminal or within your own code.
 
 ---
 
-## ✨ Features (v2.0.0)
+## Features (v2.0.0)
 
-- **🚀 Interactive Scaffolding:** Generate ready-to-code project boilerplates with a single command.
-- **📂 Bring Your Own Boilerplate (BYOB):** Store your own custom templates in `~/.scaffzap/templates` and the CLI will dynamically load them into the menu.
-- **🌐 Remote Scaffolding:** Instantly clone any public GitHub repository and automatically strip the `.git` history for a clean slate.
-- **🤖 Post-Generation Automation:** Automatically initializes Git repositories and installs dependencies (`npm`, `yarn`, `pnpm`, or `go mod`).
-- **🔄 Universal Data Converter:** Read `.json`, `.csv`, or `.yaml` files and instantly translate them into Markdown tables, SQL statements, TypeScript Interfaces, GraphQL Types, Prisma Schemas, or standard JSON arrays.
-- **🛠️ Hybrid Architecture:** Use it globally as a CLI tool or install it locally as an importable utility library.
+- ** Interactive Scaffolding:** Generate ready-to-code project boilerplates with a single command.
+- ** Bring Your Own Boilerplate (BYOB):** Store your own custom templates in `~/.scaffzap/templates` and the CLI will dynamically load them into the menu.
+- ** Remote Scaffolding:** Instantly clone any public GitHub repository and automatically strip the `.git` history for a clean slate.
+- ** Post-Generation Automation:** Automatically initializes Git repositories and installs dependencies (`npm`, `yarn`, `pnpm`, or `go mod`).
+- ** Universal Data Converter:** Read `.json`, `.csv`, or `.yaml` files and instantly translate them into Markdown tables, SQL statements, TypeScript Interfaces, GraphQL Types, Prisma Schemas, or standard JSON arrays.
+- ** Hybrid Architecture:** Use it globally as a CLI tool or install it locally as an importable utility library.
 
-## 📦 Installation
+## Installation
 
 ### As a Global CLI (Recommended for terminal use)
 ```bash
@@ -32,7 +28,7 @@ npm install scaffzap
 
 ```
 
-## 💻 CLI Usage
+## CLI Usage
 
 Once installed globally, run `scaffzap` from anywhere in your terminal.
 
@@ -49,14 +45,14 @@ scaffzap create my-awesome-app
 
 **Current Available Options:**
 
-* 📂 **Custom:** Any folder found in `~/.scaffzap/templates`
-* 🌐 **Remote GitHub Repository** (Clones directly via URL or `user/repo`)
-* 🟢 Express + TypeScript
-* ⚛️ React + Tailwind (Vite)
-* 🛠️ Node CLI (TypeScript + Commander)
-* ⬛ Next.js (App Router)
-* 🟩 Vue 3 (Vite)
-* 🐹 Go REST API (Fiber)
+* **Custom:** Any folder found in `~/.scaffzap/templates`
+* **Remote GitHub Repository** (Clones directly via URL or `user/repo`)
+* Express + TypeScript
+* React + Tailwind (Vite)
+* Node CLI (TypeScript + Commander)
+* Next.js (App Router)
+* Vue 3 (Vite)
+* Go REST API (Fiber)
 
 ### 2. Convert Data Files
 
