@@ -9,9 +9,12 @@ import { getNodeCliTemplate } from '../templates/node-cli';
 import { getNextJsTemplate } from '../templates/nextjs';
 import { getVue3Template } from '../templates/vue3';
 import { getGoFiberTemplate } from '../templates/go-fiber';
+import { getCustomTemplates, loadCustomTemplate } from '../utils/custom-templates';
 
 export async function scaffoldCommand(projectName?: string) {
-  console.log(chalk.blue.bold('\nScaffzap: Let\'s build something fast.\n'));
+  console.log(chalk.blue.bold('\n⚡ Scaffzap: Let\'s build something fast.\n'));
+
+  const customTemplates = getCustomTemplates();
 
   const response = await prompts([
     {
@@ -25,6 +28,7 @@ export async function scaffoldCommand(projectName?: string) {
       name: 'template',
       message: 'Which boilerplate do you want to generate?',
       choices: [
+        ...customTemplates,
         { title: 'Express + TypeScript', value: 'express-ts' },
         { title: 'Node CLI (TypeScript + Commander)', value: 'node-cli' },
         { title: 'React + Tailwind (Vite)', value: 'react-tailwind' },
@@ -70,11 +74,13 @@ export async function scaffoldCommand(projectName?: string) {
   console.log(chalk.green(`\nGenerating '${template}' in ./${finalName}...`));
 
   fs.mkdirSync(targetPath, { recursive: true });
-  fs.mkdirSync(path.join(targetPath, 'src'), { recursive: true });
 
   let filesToCreate: { path: string; content: string }[] = [];
   
-  if (template === 'express-ts') filesToCreate = getExpressTsTemplate(finalName);
+  if (template.startsWith('custom:')) {
+    const customName = template.split(':')[1];
+    filesToCreate = loadCustomTemplate(customName, finalName);
+  } else if (template === 'express-ts') filesToCreate = getExpressTsTemplate(finalName);
   else if (template === 'react-tailwind') filesToCreate = getReactTailwindTemplate(finalName);
   else if (template === 'node-cli') filesToCreate = getNodeCliTemplate(finalName);
   else if (template === 'nextjs') filesToCreate = getNextJsTemplate(finalName);
@@ -92,9 +98,12 @@ export async function scaffoldCommand(projectName?: string) {
     try {
       console.log(chalk.gray('  Initializing Git repository...'));
       execSync('git init', { cwd: targetPath, stdio: 'ignore' });
-      fs.writeFileSync(path.join(targetPath, '.gitignore'), 'node_modules\ndist\n.env\n.next\n', 'utf8');
+      const gitignorePath = path.join(targetPath, '.gitignore');
+      if (!fs.existsSync(gitignorePath)) {
+        fs.writeFileSync(gitignorePath, 'node_modules\ndist\n.env\n.next\n', 'utf8');
+      }
     } catch (error) {
-      console.log(chalk.yellow('  Warning: Failed to initialize Git.'));
+      console.log(chalk.yellow('Warning: Failed to initialize Git.'));
     }
   }
 
