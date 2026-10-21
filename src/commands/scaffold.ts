@@ -12,7 +12,7 @@ import { getGoFiberTemplate } from '../templates/go-fiber';
 import { getCustomTemplates, loadCustomTemplate } from '../utils/custom-templates';
 
 export async function scaffoldCommand(projectName?: string) {
-  console.log(chalk.blue.bold('\n⚡ Scaffzap: Let\'s build something fast.\n'));
+  console.log(chalk.blue.bold('\nScaffzap: Let\'s build something fast.\n'));
 
   const customTemplates = getCustomTemplates();
 
@@ -29,6 +29,7 @@ export async function scaffoldCommand(projectName?: string) {
       message: 'Which boilerplate do you want to generate?',
       choices: [
         ...customTemplates,
+        { title: 'Remote GitHub Repository', value: 'github' },
         { title: 'Express + TypeScript', value: 'express-ts' },
         { title: 'Node CLI (TypeScript + Commander)', value: 'node-cli' },
         { title: 'React + Tailwind (Vite)', value: 'react-tailwind' },
@@ -36,6 +37,11 @@ export async function scaffoldCommand(projectName?: string) {
         { title: 'Vue 3 (Vite)', value: 'vue3' },
         { title: 'Go REST API (Fiber)', value: 'go-fiber' },
       ],
+    },
+    {
+      type: (prev) => prev === 'github' ? 'text' : null,
+      name: 'githubRepo',
+      message: 'Enter the repository (e.g., user/repo or full HTTPS URL):',
     },
     {
       type: 'confirm',
@@ -57,9 +63,9 @@ export async function scaffoldCommand(projectName?: string) {
   ]);
 
   const finalName = projectName || response.name;
-  const { template, git, pkgManager } = response;
+  const { template, githubRepo, git, pkgManager } = response;
 
-  if (!finalName || !template) {
+  if (!finalName || !template || (template === 'github' && !githubRepo)) {
     console.log(chalk.red('Process cancelled.'));
     process.exit(1);
   }
@@ -71,39 +77,62 @@ export async function scaffoldCommand(projectName?: string) {
     process.exit(1);
   }
 
-  console.log(chalk.green(`\nGenerating '${template}' in ./${finalName}...`));
+  console.log(chalk.green(`\n➔ Generating '${template}' in ./${finalName}...`));
 
-  fs.mkdirSync(targetPath, { recursive: true });
 
-  let filesToCreate: { path: string; content: string }[] = [];
-  
-  if (template.startsWith('custom:')) {
-    const customName = template.split(':')[1];
-    filesToCreate = loadCustomTemplate(customName, finalName);
-  } else if (template === 'express-ts') filesToCreate = getExpressTsTemplate(finalName);
-  else if (template === 'react-tailwind') filesToCreate = getReactTailwindTemplate(finalName);
-  else if (template === 'node-cli') filesToCreate = getNodeCliTemplate(finalName);
-  else if (template === 'nextjs') filesToCreate = getNextJsTemplate(finalName);
-  else if (template === 'vue3') filesToCreate = getVue3Template(finalName);
-  else if (template === 'go-fiber') filesToCreate = getGoFiberTemplate(finalName);
+  if (template !== 'github') {
+    fs.mkdirSync(targetPath, { recursive: true });
+  }
 
-  filesToCreate.forEach((file) => {
-    const fullPath = path.join(targetPath, file.path);
-    fs.mkdirSync(path.dirname(fullPath), { recursive: true });
-    fs.writeFileSync(fullPath, file.content, 'utf8');
-  });
-  console.log(chalk.gray(`  Created ${filesToCreate.length} files.`));
+
+  if (template === 'github') {
+    try {
+      const repoUrl = githubRepo.startsWith('http') ? githubRepo : `https://github.com/${githubRepo}.git`;
+      console.log(chalk.gray(`  Cloning ${repoUrl}...`));
+      
+
+      execSync(`git clone ${repoUrl} ${targetPath}`, { stdio: 'ignore' });
+      
+
+      fs.rmSync(path.join(targetPath, '.git'), { recursive: true, force: true });
+      console.log(chalk.gray('  Stripped original git history.'));
+      
+    } catch (error) {
+      console.log(chalk.red('\nFailed to clone repository. Make sure the URL is correct and public.'));
+      process.exit(1);
+    }
+  } else {
+    let filesToCreate: { path: string; content: string }[] = [];
+    
+    if (template.startsWith('custom:')) {
+      const customName = template.split(':')[1];
+      filesToCreate = loadCustomTemplate(customName, finalName);
+    } else if (template === 'express-ts') filesToCreate = getExpressTsTemplate(finalName);
+    else if (template === 'react-tailwind') filesToCreate = getReactTailwindTemplate(finalName);
+    else if (template === 'node-cli') filesToCreate = getNodeCliTemplate(finalName);
+    else if (template === 'nextjs') filesToCreate = getNextJsTemplate(finalName);
+    else if (template === 'vue3') filesToCreate = getVue3Template(finalName);
+    else if (template === 'go-fiber') filesToCreate = getGoFiberTemplate(finalName);
+
+    filesToCreate.forEach((file) => {
+      const fullPath = path.join(targetPath, file.path);
+      fs.mkdirSync(path.dirname(fullPath), { recursive: true });
+      fs.writeFileSync(fullPath, file.content, 'utf8');
+    });
+    console.log(chalk.gray(`  Created ${filesToCreate.length} files.`));
+  }
 
   if (git) {
     try {
       console.log(chalk.gray('  Initializing Git repository...'));
       execSync('git init', { cwd: targetPath, stdio: 'ignore' });
+      
       const gitignorePath = path.join(targetPath, '.gitignore');
       if (!fs.existsSync(gitignorePath)) {
         fs.writeFileSync(gitignorePath, 'node_modules\ndist\n.env\n.next\n', 'utf8');
       }
     } catch (error) {
-      console.log(chalk.yellow('Warning: Failed to initialize Git.'));
+      console.log(chalk.yellow('  Warning: Failed to initialize Git.'));
     }
   }
 
@@ -111,15 +140,13 @@ export async function scaffoldCommand(projectName?: string) {
     try {
       console.log(chalk.blue(`\nInitializing Go modules...`));
       execSync(`go mod tidy`, { cwd: targetPath, stdio: 'inherit' });
-    } catch (error) {
-      console.log(chalk.red(`\nFailed to run go mod tidy. Ensure Go is installed.`));
-    }
+    } catch (error) {}
   } else if (pkgManager !== 'skip') {
     try {
       console.log(chalk.blue(`\nInstalling dependencies using ${pkgManager}... this might take a moment.`));
       execSync(`${pkgManager} install`, { cwd: targetPath, stdio: 'inherit' });
     } catch (error) {
-      console.log(chalk.red(`\nFailed to install dependencies. You can run '${pkgManager} install' manually later.`));
+      console.log(chalk.red(`\nFailed to install dependencies. You can run '${pkgManager} install' manually.`));
     }
   }
 
