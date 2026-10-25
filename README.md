@@ -1,6 +1,6 @@
 # Scaffzap
 
-**Scaffzap** is a lightning-fast, hybrid CLI tool and Node.js library designed to eliminate boilerplate fatigue. Instantly scaffold pre-configured projects, clone repositories, and convert data structures on the fly directly from your terminal or within your own code.
+**Scaffzap** CLI tool and Node.js library designed to eliminate boilerplate fatigue. Instantly scaffold pre-configured projects, clone repositories, and convert data structures on the fly directly from your terminal or within your own code.
 
 ---
 
