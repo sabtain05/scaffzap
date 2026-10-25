@@ -1,6 +1,6 @@
 # Scaffzap
 
-**Scaffzap** CLI tool and Node.js library designed to eliminate boilerplate fatigue. Instantly scaffold pre-configured projects, clone repositories, and convert data structures on the fly directly from your terminal or within your own code.
+**Scaffzap** is a CLI tool and Node.js library designed to eliminate boilerplate fatigue. Instantly scaffold pre-configured projects, clone repositories, and convert data structures on the fly directly from your terminal or within your own code.
 
 ---
 
