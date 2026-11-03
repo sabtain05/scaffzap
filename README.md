@@ -1,22 +1,18 @@
-```markdown
-# ⚡ Scaffzap
-
-[![npm version](https://img.shields.io/npm/v/scaffzap.svg)](https://www.npmjs.com/package/scaffzap)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+# Scaffzap
 
 **Scaffzap** is a lightning-fast, hybrid CLI tool and Node.js library designed to eliminate boilerplate fatigue. Instantly scaffold pre-configured projects, build and share your own custom templates, and convert complex data structures on the fly.
 
 ---
 
-## ✨ Features (v2.5.0)
+## Features (v2.5.0)
 
-- **🚀 Interactive Scaffolding:** Generate ready-to-code project boilerplates with a single command.
-- **🌐 Decentralized Template Ecosystem:** Use `scaffzap add` to download templates from GitHub, or use `scaffzap build-template` to turn your local projects into reusable boilerplates.
-- **⚙️ Workspace Configuration:** Drop a `scaffzap.json` in your repository to enforce team rules, lock package managers, and bypass prompts for CI/CD pipelines.
-- **📂 Bring Your Own Boilerplate (BYOB):** Store your custom templates in `~/.scaffzap/templates` and the CLI will dynamically load them into your menu.
-- **🤖 Post-Generation Automation:** Automatically initializes Git repositories and installs dependencies (`npm`, `yarn`, `pnpm`, or `go mod`).
-- **🔄 Universal Data Converter:** Translate `.json`, `.csv`, or `.yaml` files into Markdown tables, SQL statements, TypeScript Interfaces, GraphQL Types, Prisma Schemas, or standard JSON arrays.
-- **🛠️ Hybrid Architecture:** Use it globally as a CLI tool or install it locally as an importable utility library.
+- **Interactive Scaffolding:** Generate ready-to-code project boilerplates with a single command.
+- **Decentralized Template Ecosystem:** Use `scaffzap add` to download templates from GitHub, or use `scaffzap build-template` to turn your local projects into reusable boilerplates.
+- **Workspace Configuration:** Drop a `scaffzap.json` in your repository to enforce team rules, lock package managers, and bypass prompts for CI/CD pipelines.
+- **Bring Your Own Boilerplate (BYOB):** Store your custom templates in `~/.scaffzap/templates` and the CLI will dynamically load them into your menu.
+- **Post-Generation Automation:** Automatically initializes Git repositories and installs dependencies (`npm`, `yarn`, `pnpm`, or `go mod`).
+- **Universal Data Converter:** Translate `.json`, `.csv`, or `.yaml` files into Markdown tables, SQL statements, TypeScript Interfaces, GraphQL Types, Prisma Schemas, or standard JSON arrays.
+- **Hybrid Architecture:** Use it globally as a CLI tool or install it locally as an importable utility library.
 
 ## Installation
 
