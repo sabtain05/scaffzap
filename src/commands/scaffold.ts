@@ -39,7 +39,7 @@ export async function scaffoldCommand(projectName?: string) {
       message: 'Which boilerplate do you want to generate?',
       choices: [
         ...customTemplates,
-        { title: '🌐 Remote GitHub Repository', value: 'github' },
+        { title: 'Remote GitHub Repository', value: 'github' },
         { title: 'Express + TypeScript', value: 'express-ts' },
         { title: 'Node CLI (TypeScript + Commander)', value: 'node-cli' },
         { title: 'React + Tailwind (Vite)', value: 'react-tailwind' },
