@@ -14,6 +14,11 @@ export function loadWorkspaceConfig(): ScaffzapConfig {
     if (fs.existsSync(configPath)) {
         try {
             const configData = fs.readFileSync(configPath, 'utf8');
+            return JSON.parse(configData) as ScaffzapConfig;
+        } catch (error) {
+            console.warn(' Found scaffzap.json but failed to parse it. Ignoring config.');
         }
     }
+
+    return {};
 }
