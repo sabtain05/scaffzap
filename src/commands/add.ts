@@ -1,4 +1,3 @@
-// src/commands/add.ts
 import fs from 'fs';
 import path from 'path';
 import os from 'os';
@@ -9,7 +8,7 @@ const SCAFFZAP_DIR = path.join(os.homedir(), '.scaffzap', 'templates');
 
 export async function addCommand(repoUrl: string, templateName: string) {
   if (!repoUrl || !templateName) {
-    console.log(chalk.red('\n❌ Usage: scaffzap add <github-url> <template-name>'));
+    console.log(chalk.red('\nUsage: scaffzap add <github-url> <template-name>'));
     console.log(chalk.gray('Example: scaffzap add https://github.com/user/repo my-new-template\n'));
     process.exit(1);
   }
@@ -17,7 +16,7 @@ export async function addCommand(repoUrl: string, templateName: string) {
   const targetDir = path.join(SCAFFZAP_DIR, templateName);
 
   if (fs.existsSync(targetDir)) {
-    console.log(chalk.red(`\n❌ Error: A custom template named '${templateName}' already exists.`));
+    console.log(chalk.red(`\nError: A custom template named '${templateName}' already exists.`));
     process.exit(1);
   }
 
