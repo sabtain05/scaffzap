@@ -31,7 +31,7 @@ function copyAndReplace(src: string, dest: string, oldName: string) {
 }
 
 export async function buildTemplateCommand() {
-  console.log(chalk.cyan.bold('\n🛠️ Scaffzap: Template Builder\n'));
+  console.log(chalk.cyan.bold('\nScaffzap: Template Builder\n'));
 
   const response = await prompts([
     {
@@ -62,7 +62,7 @@ export async function buildTemplateCommand() {
   const targetDir = path.join(SCAFFZAP_DIR, templateName);
 
   if (!fs.existsSync(absoluteSrc)) {
-    console.log(chalk.red(`\n❌ Error: Source directory '${absoluteSrc}' not found.`));
+    console.log(chalk.red(`\nError: Source directory '${absoluteSrc}' not found.`));
     return;
   }
 
