@@ -21,7 +21,7 @@ export async function addCommand(repoUrl: string, templateName: string) {
     process.exit(1);
   }
 
-  console.log(chalk.blue(`\n📥 Downloading template from ${repoUrl}...`));
+  console.log(chalk.blue(`\nDownloading template from ${repoUrl}...`));
 
   try {
     fs.mkdirSync(SCAFFZAP_DIR, { recursive: true });
