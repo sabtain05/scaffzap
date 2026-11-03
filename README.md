@@ -1,19 +1,24 @@
-# Scaffzap
+```markdown
+# ⚡ Scaffzap
 
-**Scaffzap** is a CLI tool and Node.js library designed to eliminate boilerplate fatigue. Instantly scaffold pre-configured projects, clone repositories, and convert data structures on the fly directly from your terminal or within your own code.
+[![npm version](https://img.shields.io/npm/v/scaffzap.svg)](https://www.npmjs.com/package/scaffzap)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+**Scaffzap** is a lightning-fast, hybrid CLI tool and Node.js library designed to eliminate boilerplate fatigue. Instantly scaffold pre-configured projects, build and share your own custom templates, and convert complex data structures on the fly.
 
 ---
 
-## Features (v2.0.0)
+## ✨ Features (v2.5.0)
 
-- ** Interactive Scaffolding:** Generate ready-to-code project boilerplates with a single command.
-- ** Bring Your Own Boilerplate (BYOB):** Store your own custom templates in `~/.scaffzap/templates` and the CLI will dynamically load them into the menu.
-- ** Remote Scaffolding:** Instantly clone any public GitHub repository and automatically strip the `.git` history for a clean slate.
-- ** Post-Generation Automation:** Automatically initializes Git repositories and installs dependencies (`npm`, `yarn`, `pnpm`, or `go mod`).
-- ** Universal Data Converter:** Read `.json`, `.csv`, or `.yaml` files and instantly translate them into Markdown tables, SQL statements, TypeScript Interfaces, GraphQL Types, Prisma Schemas, or standard JSON arrays.
-- ** Hybrid Architecture:** Use it globally as a CLI tool or install it locally as an importable utility library.
+- **🚀 Interactive Scaffolding:** Generate ready-to-code project boilerplates with a single command.
+- **🌐 Decentralized Template Ecosystem:** Use `scaffzap add` to download templates from GitHub, or use `scaffzap build-template` to turn your local projects into reusable boilerplates.
+- **⚙️ Workspace Configuration:** Drop a `scaffzap.json` in your repository to enforce team rules, lock package managers, and bypass prompts for CI/CD pipelines.
+- **📂 Bring Your Own Boilerplate (BYOB):** Store your custom templates in `~/.scaffzap/templates` and the CLI will dynamically load them into your menu.
+- **🤖 Post-Generation Automation:** Automatically initializes Git repositories and installs dependencies (`npm`, `yarn`, `pnpm`, or `go mod`).
+- **🔄 Universal Data Converter:** Translate `.json`, `.csv`, or `.yaml` files into Markdown tables, SQL statements, TypeScript Interfaces, GraphQL Types, Prisma Schemas, or standard JSON arrays.
+- **🛠️ Hybrid Architecture:** Use it globally as a CLI tool or install it locally as an importable utility library.
 
-## Installation
+## 📦 Installation
 
 ### As a Global CLI (Recommended for terminal use)
 ```bash
@@ -28,9 +33,7 @@ npm install scaffzap
 
 ```
 
-## CLI Usage
-
-Once installed globally, run `scaffzap` from anywhere in your terminal.
+## 💻 CLI Usage
 
 ### 1. Scaffold a New Project
 
@@ -38,43 +41,55 @@ Run the `create` command to start the interactive project generator:
 
 ```bash
 scaffzap create
-# OR skip the first prompt by passing a name:
+# OR skip the first prompt:
 scaffzap create my-awesome-app
 
 ```
 
-**Current Available Options:**
+### 2. Add a Remote Template
 
-* **Custom:** Any folder found in `~/.scaffzap/templates`
-* **Remote GitHub Repository** (Clones directly via URL or `user/repo`)
-* Express + TypeScript
-* React + Tailwind (Vite)
-* Node CLI (TypeScript + Commander)
-* Next.js (App Router)
-* Vue 3 (Vite)
-* Go REST API (Fiber)
-
-### 2. Convert Data Files
-
-Run the `convert` command to translate data structures. It now auto-detects `.json`, `.csv`, and `.yaml` inputs!
+Download a boilerplate from any public GitHub repository directly into your local Scaffzap menu:
 
 ```bash
-scaffzap convert
-# OR skip the first prompt by passing the file path:
+scaffzap add [https://github.com/username/repo-name](https://github.com/username/repo-name) my-custom-template
+
+```
+
+### 3. Build a Local Template
+
+Turn one of your existing projects into a reusable Scaffzap template. This command automatically watches your folder and replaces hardcoded names with `{{PROJECT_NAME}}`:
+
+```bash
+scaffzap build-template
+
+```
+
+### 4. Convert Data Files
+
+Instantly translate data structures. Auto-detects `.json`, `.csv`, and `.yaml`:
+
+```bash
 scaffzap convert ./data/users.csv
 
 ```
 
-**Current Available Converters:**
+## ⚙️ Team Workspace Config (`scaffzap.json`)
 
-* Array ➔ Markdown Table
-* Array ➔ SQL Insert Statements
-* Array ➔ TypeScript Interfaces
-* Array ➔ GraphQL Types
-* Array ➔ Prisma Schema
-* Array ➔ JSON (Standardize CSV/YAML to JSON)
+If you are working in a team or a CI/CD environment, you can place a `scaffzap.json` file in the root of your project to enforce standards and skip interactive prompts:
 
-## Custom Templates (BYOB)
+```json
+{
+  "ci": true,
+  "defaultTemplate": "react-tailwind",
+  "defaultPackageManager": "pnpm",
+  "gitInit": false
+}
+
+```
+
+*When `ci: true` is set, `scaffzap create my-app` will run instantly without asking any questions.*
+
+## 📂 Custom Templates (BYOB)
 
 You are no longer limited to the built-in boilerplates. Scaffzap allows you to create your own!
 
@@ -83,7 +98,7 @@ You are no longer limited to the built-in boilerplates. Scaffzap allows you to c
 3. Use the `{{PROJECT_NAME}}` placeholder inside your code or `package.json`. Scaffzap will automatically replace it with the user's input during generation.
 4. Run `scaffzap create` and select your new template from the menu!
 
-## Library Usage (API)
+## 🧩 Library Usage (API)
 
 Scaffzap exports its core engines so you can build your own automation tools. It supports both CommonJS and ES Modules.
 
@@ -115,16 +130,16 @@ files.forEach(file => {
 
 ```
 
-## Contributing
+## 🤝 Contributing
 
 Contributions, issues, and feature requests are welcome!
-Check out our [Contributing Guide](https://www.google.com/search?q=CONTRIBUTING.md) and [Code of Conduct](https://www.google.com/search?q=CODE_OF_CONDUCT.md) if you want to help add more templates or new data converters.
+Check out our [Contributing Guide](CONTRIBUTING.md) and [Code of Conduct](CODE_OF_CONDUCT.md).
 
-## Security
+## 🛡️ Security
 
 Please review our [Security Policy](SECURITY.md) for reporting vulnerabilities.
 
-## License
+## 📄 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE.md) file for details.
 
