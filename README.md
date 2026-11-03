@@ -18,7 +18,7 @@
 - **🔄 Universal Data Converter:** Translate `.json`, `.csv`, or `.yaml` files into Markdown tables, SQL statements, TypeScript Interfaces, GraphQL Types, Prisma Schemas, or standard JSON arrays.
 - **🛠️ Hybrid Architecture:** Use it globally as a CLI tool or install it locally as an importable utility library.
 
-## 📦 Installation
+## Installation
 
 ### As a Global CLI (Recommended for terminal use)
 ```bash
@@ -33,7 +33,7 @@ npm install scaffzap
 
 ```
 
-## 💻 CLI Usage
+## CLI Usage
 
 ### 1. Scaffold a New Project
 
@@ -73,7 +73,7 @@ scaffzap convert ./data/users.csv
 
 ```
 
-## ⚙️ Team Workspace Config (`scaffzap.json`)
+## Team Workspace Config (`scaffzap.json`)
 
 If you are working in a team or a CI/CD environment, you can place a `scaffzap.json` file in the root of your project to enforce standards and skip interactive prompts:
 
@@ -89,7 +89,7 @@ If you are working in a team or a CI/CD environment, you can place a `scaffzap.j
 
 *When `ci: true` is set, `scaffzap create my-app` will run instantly without asking any questions.*
 
-## 📂 Custom Templates (BYOB)
+## Custom Templates (BYOB)
 
 You are no longer limited to the built-in boilerplates. Scaffzap allows you to create your own!
 
@@ -98,7 +98,7 @@ You are no longer limited to the built-in boilerplates. Scaffzap allows you to c
 3. Use the `{{PROJECT_NAME}}` placeholder inside your code or `package.json`. Scaffzap will automatically replace it with the user's input during generation.
 4. Run `scaffzap create` and select your new template from the menu!
 
-## 🧩 Library Usage (API)
+## Library Usage (API)
 
 Scaffzap exports its core engines so you can build your own automation tools. It supports both CommonJS and ES Modules.
 
