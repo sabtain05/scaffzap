@@ -18,13 +18,12 @@ export async function scaffoldCommand(projectName?: string) {
   const config = loadWorkspaceConfig();
   const customTemplates = getCustomTemplates();
 
-
   if (config.ci) {
     if (!projectName || !config.defaultTemplate) {
       console.log(chalk.red('CI mode requires a project name argument and a defaultTemplate in scaffzap.json.'));
       process.exit(1);
     }
-    console.log(chalk.yellow('⚙️ Running in CI Mode (Prompts bypassed)'));
+    console.log(chalk.yellow('Running in CI Mode (Prompts bypassed)'));
   }
 
   const response = await prompts([
