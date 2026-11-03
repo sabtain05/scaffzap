@@ -1,4 +1,3 @@
-// src/commands/build-template.ts
 import fs from 'fs';
 import path from 'path';
 import os from 'os';
@@ -17,12 +16,10 @@ function copyAndReplace(src: string, dest: string, oldName: string) {
     const destPath = path.join(dest, entry.name);
 
     if (entry.isDirectory()) {
-      // Skip node_modules and .git
       if (entry.name === 'node_modules' || entry.name === '.git') continue;
       copyAndReplace(srcPath, destPath, oldName);
     } else {
       let content = fs.readFileSync(srcPath, 'utf8');
-      // Replace the old project name with the Scaffzap placeholder
       const regex = new RegExp(oldName, 'g');
       content = content.replace(regex, '{{PROJECT_NAME}}');
       fs.writeFileSync(destPath, content, 'utf8');
