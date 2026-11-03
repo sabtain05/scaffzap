@@ -26,14 +26,12 @@ export async function addCommand(repoUrl: string, templateName: string) {
   try {
     fs.mkdirSync(SCAFFZAP_DIR, { recursive: true });
     
-    // Clone depth 1 for speed, directly into the BYOB directory
     const url = repoUrl.startsWith('http') ? repoUrl : `https://github.com/${repoUrl}.git`;
     execSync(`git clone --depth 1 ${url} ${targetDir}`, { stdio: 'ignore' });
     
-    // Remove the .git folder so it behaves as a clean boilerplate
     fs.rmSync(path.join(targetDir, '.git'), { recursive: true, force: true });
     
-    console.log(chalk.green.bold(`\n✅ Template '${templateName}' added successfully!`));
+    console.log(chalk.green.bold(`\nTemplate '${templateName}' added successfully!`));
     console.log(chalk.cyan(`Run 'scaffzap create' to use it.\n`));
   } catch (error) {
     console.log(chalk.red(`\nFailed to add template. Make sure the URL is public and correct.`));
