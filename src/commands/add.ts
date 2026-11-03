@@ -36,8 +36,7 @@ export async function addCommand(repoUrl: string, templateName: string) {
     console.log(chalk.green.bold(`\n✅ Template '${templateName}' added successfully!`));
     console.log(chalk.cyan(`Run 'scaffzap create' to use it.\n`));
   } catch (error) {
-    console.log(chalk.red(`\n❌ Failed to add template. Make sure the URL is public and correct.`));
-    // Cleanup if partial clone failed
+    console.log(chalk.red(`\nFailed to add template. Make sure the URL is public and correct.`));
     if (fs.existsSync(targetDir)) fs.rmSync(targetDir, { recursive: true, force: true });
   }
 }
