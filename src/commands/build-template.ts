@@ -69,6 +69,6 @@ export async function buildTemplateCommand() {
   console.log(chalk.gray(`\nProcessing files from ${absoluteSrc}...`));
   copyAndReplace(absoluteSrc, targetDir, oldName);
 
-  console.log(chalk.green.bold(`\n✅ Template '${templateName}' successfully built!`));
+  console.log(chalk.green.bold(`\nTemplate '${templateName}' successfully built!`));
   console.log(chalk.cyan(`It is now available in your 'scaffzap create' menu under Custom templates.\n`));
 }
