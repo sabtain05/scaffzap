@@ -7,3 +7,13 @@ export interface ScaffzapConfig {
     defaultTemplate?: string;
     gitInit?: boolean;
 }
+
+export function loadWorkspaceConfig(): ScaffzapConfig {
+    const configPath = path.join(process.cwd(), 'scaffzap.json');
+
+    if (fs.existsSync(configPath)) {
+        try {
+            const configData = fs.readFileSync(configPath, 'utf8');
+        }
+    }
+}
