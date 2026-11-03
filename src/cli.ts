@@ -1,26 +1,42 @@
 import { Command } from 'commander';
 import { scaffoldCommand } from './commands/scaffold';
 import { convertCommand } from './commands/convert';
+import { buildTemplateCommand } from './commands/build-template';
+import { addCommand } from './commands/add';
 
 const program = new Command();
 
 program
   .name('scaffzap')
-  .description('The fastest way to scaffold projects and convert files.')
-  .version('1.0.0');
+  .description('Lightning-fast hybrid CLI for scaffolding and data conversion')
+  .version('2.5.0');
 
 program
   .command('create [project-name]')
-  .description('Interactively generate a new project boilerplate')
+  .description('Scaffold a new project boilerplate')
   .action((projectName) => {
     scaffoldCommand(projectName);
   });
 
 program
   .command('convert [input-file]')
-  .description('Convert data structures (e.g., JSON to Markdown/SQL)')
+  .description('Convert data structures (JSON, CSV, YAML) into standard formats')
   .action((inputFile) => {
     convertCommand(inputFile);
   });
 
-program.parse();
+program
+  .command('build-template')
+  .description('Convert an existing local project into a Scaffzap custom template')
+  .action(() => {
+    buildTemplateCommand();
+  });
+
+program
+  .command('add <url> <template-name>')
+  .description('Download a remote GitHub repository into your custom templates directory')
+  .action((url, templateName) => {
+    addCommand(url, templateName);
+  });
+
+program.parse(process.argv);
