@@ -18,7 +18,7 @@ export async function scaffoldCommand(projectName?: string) {
   const config = loadWorkspaceConfig();
   const customTemplates = getCustomTemplates();
 
-  // If CI mode is enabled in scaffzap.json, bypass prompts
+
   if (config.ci) {
     if (!projectName || !config.defaultTemplate) {
       console.log(chalk.red('CI mode requires a project name argument and a defaultTemplate in scaffzap.json.'));
