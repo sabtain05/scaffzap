@@ -130,16 +130,16 @@ files.forEach(file => {
 
 ```
 
-## 🤝 Contributing
+## Contributing
 
 Contributions, issues, and feature requests are welcome!
 Check out our [Contributing Guide](CONTRIBUTING.md) and [Code of Conduct](CODE_OF_CONDUCT.md).
 
-## 🛡️ Security
+## Security
 
 Please review our [Security Policy](SECURITY.md) for reporting vulnerabilities.
 
-## 📄 License
+## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE.md) file for details.
 
