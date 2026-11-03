@@ -10,26 +10,37 @@ import { getNextJsTemplate } from '../templates/nextjs';
 import { getVue3Template } from '../templates/vue3';
 import { getGoFiberTemplate } from '../templates/go-fiber';
 import { getCustomTemplates, loadCustomTemplate } from '../utils/custom-templates';
+import { loadWorkspaceConfig } from '../utils/config';
 
 export async function scaffoldCommand(projectName?: string) {
   console.log(chalk.blue.bold('\nScaffzap: Let\'s build something fast.\n'));
 
+  const config = loadWorkspaceConfig();
   const customTemplates = getCustomTemplates();
+
+  // If CI mode is enabled in scaffzap.json, bypass prompts
+  if (config.ci) {
+    if (!projectName || !config.defaultTemplate) {
+      console.log(chalk.red('CI mode requires a project name argument and a defaultTemplate in scaffzap.json.'));
+      process.exit(1);
+    }
+    console.log(chalk.yellow('⚙️ Running in CI Mode (Prompts bypassed)'));
+  }
 
   const response = await prompts([
     {
-      type: projectName ? null : 'text',
+      type: projectName || config.ci ? null : 'text',
       name: 'name',
       message: 'What is the name of your project?',
       initial: 'my-zap-app',
     },
     {
-      type: 'select',
+      type: config.defaultTemplate ? null : 'select',
       name: 'template',
       message: 'Which boilerplate do you want to generate?',
       choices: [
         ...customTemplates,
-        { title: 'Remote GitHub Repository', value: 'github' },
+        { title: '🌐 Remote GitHub Repository', value: 'github' },
         { title: 'Express + TypeScript', value: 'express-ts' },
         { title: 'Node CLI (TypeScript + Commander)', value: 'node-cli' },
         { title: 'React + Tailwind (Vite)', value: 'react-tailwind' },
@@ -44,13 +55,13 @@ export async function scaffoldCommand(projectName?: string) {
       message: 'Enter the repository (e.g., user/repo or full HTTPS URL):',
     },
     {
-      type: 'confirm',
+      type: config.gitInit !== undefined ? null : 'confirm',
       name: 'git',
       message: 'Initialize a new Git repository?',
       initial: true
     },
     {
-      type: (prev, values) => values.template === 'go-fiber' ? null : 'select',
+      type: (prev, values) => (values.template || config.defaultTemplate) === 'go-fiber' || config.defaultPackageManager ? null : 'select',
       name: 'pkgManager',
       message: 'Which package manager do you want to use for installation?',
       choices: [
@@ -63,7 +74,10 @@ export async function scaffoldCommand(projectName?: string) {
   ]);
 
   const finalName = projectName || response.name;
-  const { template, githubRepo, git, pkgManager } = response;
+  const template = config.defaultTemplate || response.template;
+  const git = config.gitInit !== undefined ? config.gitInit : response.git;
+  const pkgManager = config.defaultPackageManager || response.pkgManager;
+  const githubRepo = response.githubRepo;
 
   if (!finalName || !template || (template === 'github' && !githubRepo)) {
     console.log(chalk.red('Process cancelled.'));
