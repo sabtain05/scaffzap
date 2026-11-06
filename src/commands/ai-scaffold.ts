@@ -4,7 +4,6 @@ import fs from 'fs';
 import path from 'path';
 
 async function fetchLLM(systemPrompt: string): Promise<string> {
-  // Replace this mock with your real LLM API call.
   console.log(chalk.gray(`  Simulating AI response for: ${systemPrompt.slice(0, 80)}...`));
 
   return JSON.stringify([
