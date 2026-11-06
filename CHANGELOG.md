@@ -5,6 +5,27 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.5.0] - 2026-11-06
+
+### Added
+- **Intelligent AI Scaffolding:** Added the `--ai` flag to `scaffzap create`. Pass natural language prompts (e.g., `scaffzap create --ai "a fastify api with redis"`) to dynamically generate entire project structures using LLM integration.
+- **Smart Data Type Inference:** Upgraded the Prisma converter engine to automatically detect nested JSON/CSV objects and dynamically generate relational tables with foreign keys.
+
+## [3.2.0] - 2026-11-05
+
+### Added
+- **Targeted File Patching (AST):** Scaffzap now goes beyond just generating new files. Utilizing `ts-morph`, templates can now intelligently parse and safely inject routes, imports, and middleware into your *existing* files (like `app.ts`) without overwriting them.
+
+## [3.1.0] - 2026-11-04
+
+### Added
+- **Converter Plugin System:** Added support for community-built data converters. Drop your custom JavaScript converter functions (e.g., JSON to Zod) into `~/.scaffzap/plugins` and the CLI will dynamically load them into the `convert` menu at runtime.
+
+## [3.0.0] - 2026-11-04
+
+### Added
+- **Enterprise Monorepo Injection:** Scaffzap now automatically detects `turbo.json`, `nx.json`, `lerna.json`, or `pnpm-workspace.yaml`. If inside a monorepo, it intelligently routes scaffolding output to your `./apps` or `./packages` directories.
+
 ## [2.5.0] - 2026-11-03
 
 ### Added
