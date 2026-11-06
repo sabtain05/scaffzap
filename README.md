@@ -18,7 +18,7 @@
 - **⚙️ Workspace Configuration:** Drop a `scaffzap.json` in your root to enforce team rules and bypass prompts in CI/CD pipelines.
 - **🔄 Universal Data Converter:** Translate `.json`, `.csv`, or `.yaml` files into standard JSON, Markdown, SQL, TypeScript, GraphQL, or Prisma Schemas with **Smart Relational Inference**.
 
-## 📦 Installation
+## Installation
 
 ### As a Global CLI (Recommended for terminal use)
 ```bash
@@ -33,7 +33,7 @@ npm install scaffzap
 
 ```
 
-## 💻 CLI Usage
+## CLI Usage
 
 ### 1. Scaffold a New Project (Standard or AI)
 
@@ -43,7 +43,7 @@ Run the `create` command to start the interactive generator, or pass the `--ai` 
 # Standard interactive menu
 scaffzap create my-awesome-app
 
-# 🧠 AI-Driven Scaffolding
+# AI-Driven Scaffolding
 scaffzap create --ai "a fastify api using typescript and redis for caching"
 
 ```
