@@ -10,13 +10,13 @@
 
 ## ✨ Features (v3.5.0)
 
-- **🧠 Intelligent AI Scaffolding:** Describe your architecture in plain English and let AI dynamically generate the entire project structure.
-- **🏗️ Enterprise Monorepo Support:** Auto-detects Turborepo, Nx, and Lerna to intelligently route newly scaffolded packages to `./apps` or `./packages`.
-- **💉 Targeted File Patching (AST):** Safely inject routes, middleware, and imports into *existing* files without overwriting them.
-- **🔌 Converter Plugin System:** Write your own custom JavaScript data converters and dynamically load them into the CLI.
-- **🌐 Decentralized Template Ecosystem:** Use `scaffzap add` to download GitHub templates, or `scaffzap build-template` to turn your local projects into reusable boilerplates.
-- **⚙️ Workspace Configuration:** Drop a `scaffzap.json` in your root to enforce team rules and bypass prompts in CI/CD pipelines.
-- **🔄 Universal Data Converter:** Translate `.json`, `.csv`, or `.yaml` files into standard JSON, Markdown, SQL, TypeScript, GraphQL, or Prisma Schemas with **Smart Relational Inference**.
+- **Intelligent AI Scaffolding:** Describe your architecture in plain English and let AI dynamically generate the entire project structure.
+- **Enterprise Monorepo Support:** Auto-detects Turborepo, Nx, and Lerna to intelligently route newly scaffolded packages to `./apps` or `./packages`.
+- **Targeted File Patching (AST):** Safely inject routes, middleware, and imports into *existing* files without overwriting them.
+- **Converter Plugin System:** Write your own custom JavaScript data converters and dynamically load them into the CLI.
+- **Decentralized Template Ecosystem:** Use `scaffzap add` to download GitHub templates, or `scaffzap build-template` to turn your local projects into reusable boilerplates.
+- **Workspace Configuration:** Drop a `scaffzap.json` in your root to enforce team rules and bypass prompts in CI/CD pipelines.
+- **Universal Data Converter:** Translate `.json`, `.csv`, or `.yaml` files into standard JSON, Markdown, SQL, TypeScript, GraphQL, or Prisma Schemas with **Smart Relational Inference**.
 
 ## Installation
 
