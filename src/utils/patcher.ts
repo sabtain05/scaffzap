@@ -20,8 +20,8 @@ export function patchExpressRoute(filePath: string, routeName: string, routePath
   if (appDeclarationIndex !== -1) {
     sourceFile.insertStatements(appDeclarationIndex + 1, `app.use('/${routePath}', ${routeName}Router);`);
     sourceFile.saveSync();
-    console.log(chalk.green(`  💉 Patched ${filePath} with /${routePath} route.`));
+    console.log(chalk.green(`Patched ${filePath} with /${routePath} route.`));
   } else {
-    console.log(chalk.yellow(`  ⚠️ Could not auto-patch ${filePath}. Express app not found.`));
+    console.log(chalk.yellow(`Could not auto-patch ${filePath}. Express app not found.`));
   }
 }
