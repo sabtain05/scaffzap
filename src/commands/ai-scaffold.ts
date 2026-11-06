@@ -3,6 +3,30 @@ import chalk from 'chalk';
 import fs from 'fs';
 import path from 'path';
 
+async function fetchLLM(systemPrompt: string): Promise<string> {
+  // Replace this mock with your real LLM API call.
+  console.log(chalk.gray(`  Simulating AI response for: ${systemPrompt.slice(0, 80)}...`));
+
+  return JSON.stringify([
+    {
+      path: 'package.json',
+      content: JSON.stringify({
+        name: 'ai-generated-app',
+        private: true,
+        version: '1.0.0',
+        scripts: {
+          start: 'node dist/index.js',
+          build: 'tsc'
+        }
+      }, null, 2)
+    },
+    {
+      path: 'src/index.ts',
+      content: 'console.log("Hello from AI scaffold!");\n'
+    }
+  ]);
+}
+
 export async function aiScaffoldCommand(promptText: string) {
   console.log(chalk.magenta.bold(`\n🧠 Scaffzap AI: Designing your architecture...`));
   
@@ -16,7 +40,7 @@ export async function aiScaffoldCommand(promptText: string) {
   try {
     // Note: Replace this mock with your actual fetch call to OpenAI/Gemini SDK
     console.log(chalk.gray(`  Calling AI model with requirements...`));
-    const aiResponse = await fetchLLM(systemPrompt); // Your API call wrapper
+    const aiResponse = await fetchLLM(systemPrompt); // Your API call wrappe
     
     const files: { path: string, content: string }[] = JSON.parse(aiResponse);
 
