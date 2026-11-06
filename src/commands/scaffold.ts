@@ -11,6 +11,7 @@ import { getVue3Template } from '../templates/vue3';
 import { getGoFiberTemplate } from '../templates/go-fiber';
 import { getCustomTemplates, loadCustomTemplate } from '../utils/custom-templates';
 import { loadWorkspaceConfig } from '../utils/config';
+import { detectMonorepo } from '../utils/monorepo';
 
 export async function scaffoldCommand(projectName?: string) {
   console.log(chalk.blue.bold('\nScaffzap: Let\'s build something fast.\n'));
@@ -83,7 +84,24 @@ export async function scaffoldCommand(projectName?: string) {
     process.exit(1);
   }
 
-  const targetPath = path.join(process.cwd(), finalName);
+  const monorepoType = detectMonorepo();
+  let basePath = process.cwd();
+
+  if (monorepoType) {
+    const workspacePrompt = await prompts({
+      type: 'select',
+      name: 'workspaceDir',
+      message: `${monorepoType} detected! Where should this package live?`,
+      choices: [
+        { title: './apps (Applications)', value: 'apps' },
+        { title: './packages (Shared Libraries)', value: 'packages' },
+        { title: 'Current Directory', value: '.' }
+      ]
+    });
+    basePath = path.join(process.cwd(), workspacePrompt.workspaceDir);
+  }
+
+  const targetPath = path.join(basePath, finalName);
 
   if (fs.existsSync(targetPath)) {
     console.log(chalk.red(`\nError: Directory '${finalName}' already exists!`));
@@ -145,7 +163,7 @@ export async function scaffoldCommand(projectName?: string) {
         fs.writeFileSync(gitignorePath, 'node_modules\ndist\n.env\n.next\n', 'utf8');
       }
     } catch (error) {
-      console.log(chalk.yellow('  Warning: Failed to initialize Git.'));
+      console.log(chalk.yellow('Warning: Failed to initialize Git.'));
     }
   }
 
