@@ -99,7 +99,7 @@ Place a `scaffzap.json` file in the root of your project to enforce standards an
 
 ```
 
-## 🧩 Library Usage (API)
+## Library Usage (API)
 
 Scaffzap exports its core engines so you can build your own automation tools.
 
