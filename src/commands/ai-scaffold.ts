@@ -28,9 +28,8 @@ async function fetchLLM(systemPrompt: string): Promise<string> {
 }
 
 export async function aiScaffoldCommand(promptText: string) {
-  console.log(chalk.magenta.bold(`\n🧠 Scaffzap AI: Designing your architecture...`));
+  console.log(chalk.magenta.bold(`\nScaffzap AI: Designing your architecture...`));
   
-  // Example payload structure expected from the LLM (e.g., OpenAI or Gemini API)
   const systemPrompt = `
     You are an expert software architect. The user wants to build: "${promptText}".
     Return ONLY a raw JSON array representing the file structure. No markdown formatting.
@@ -38,9 +37,8 @@ export async function aiScaffoldCommand(promptText: string) {
   `;
 
   try {
-    // Note: Replace this mock with your actual fetch call to OpenAI/Gemini SDK
     console.log(chalk.gray(`  Calling AI model with requirements...`));
-    const aiResponse = await fetchLLM(systemPrompt); // Your API call wrappe
+    const aiResponse = await fetchLLM(systemPrompt);
     
     const files: { path: string, content: string }[] = JSON.parse(aiResponse);
 
