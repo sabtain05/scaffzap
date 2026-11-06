@@ -12,6 +12,11 @@ export async function loadConverterPlugin() {
 
     for (const file of files) {
         const pluginPath = path.join(PLUGINS_DIR, file);
-        const plugin
+        const plugin = await import(`files://${pluginPath}`);
+        if (plugin.name && plugin.handler && plugin.extension) {
+            plugin.push({
+                
+            })
+        }
     }
 }
