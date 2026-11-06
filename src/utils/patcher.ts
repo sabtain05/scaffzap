@@ -1,4 +1,4 @@
-import { Project } from 'ts-morph';
+import { Project, Statement } from 'ts-morph';
 import chalk from 'chalk';
 
 export function patchExpressRoute(filePath: string, routeName: string, routePath: string) {
@@ -12,8 +12,8 @@ export function patchExpressRoute(filePath: string, routeName: string, routePath
   });
 
   const statements = sourceFile.getStatements();
-  const appDeclarationIndex = statements.findIndex(s => s.getText().includes('express()'));
-  
+  const appDeclarationIndex = statements.findIndex((s: Statement) => s.getText().includes('express()'));
+
   if (appDeclarationIndex !== -1) {
     sourceFile.insertStatements(appDeclarationIndex + 1, `app.use('/${routePath}', ${routeName}Router);`);
     sourceFile.saveSync();
