@@ -1,14 +1,10 @@
-```markdown
-# ⚡ Scaffzap
-
-[![npm version](https://img.shields.io/npm/v/scaffzap.svg)](https://www.npmjs.com/package/scaffzap)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+# Scaffzap
 
 **Scaffzap** has evolved from a simple file generator into a context-aware development assistant. Instantly scaffold projects using AI, safely inject code into existing files via AST parsing, route generations perfectly in Enterprise Monorepos, and convert complex relational data structures on the fly.
 
 ---
 
-## ✨ Features (v3.5.0)
+## Features (v3.5.0)
 
 - **Intelligent AI Scaffolding:** Describe your architecture in plain English and let AI dynamically generate the entire project structure.
 - **Enterprise Monorepo Support:** Auto-detects Turborepo, Nx, and Lerna to intelligently route newly scaffolded packages to `./apps` or `./packages`.
