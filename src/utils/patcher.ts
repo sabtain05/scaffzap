@@ -6,14 +6,11 @@ export function patchExpressRoute(filePath: string, routeName: string, routePath
   project.addSourceFilesAtPaths(filePath);
   const sourceFile = project.getSourceFileOrThrow(filePath);
 
-  // 1. Inject the import statement at the top safely
   sourceFile.addImportDeclaration({
     defaultImport: `${routeName}Router`,
     moduleSpecifier: `./routes/${routeName}`,
   });
 
-  // 2. Find the Express app initialization (const app = express())
-  // and inject the app.use() middleware right below it
   const statements = sourceFile.getStatements();
   const appDeclarationIndex = statements.findIndex(s => s.getText().includes('express()'));
   
