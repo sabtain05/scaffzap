@@ -1,5 +1,6 @@
 import { Command } from 'commander';
 import { scaffoldCommand } from './commands/scaffold';
+import { aiScaffoldCommand } from './commands/ai-scaffold';
 import { convertCommand } from './commands/convert';
 import { buildTemplateCommand } from './commands/build-template';
 import { addCommand } from './commands/add';
@@ -13,9 +14,14 @@ program
 
 program
   .command('create [project-name]')
+  .option('--ai <prompt>', 'Generate a custom template using AI')
   .description('Scaffold a new project boilerplate')
-  .action((projectName) => {
-    scaffoldCommand(projectName);
+  .action(async (projectName, options) => {
+    if (options.ai) {
+      await aiScaffoldCommand(options.ai);
+    } else {
+      await scaffoldCommand(projectName);
+    }
   });
 
 program
