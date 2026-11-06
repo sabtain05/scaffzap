@@ -8,6 +8,5 @@ export async function loadConverterPlugin() {
     if (!fs.existsSync(PLUGIN_DIR)) return [];
 
     const files = fs.readdirSync(PLUGIN_DIR).filter(f => f.endsWith('.js'));
-
-    
+    const plugins = [];
 }
