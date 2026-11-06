@@ -75,7 +75,7 @@ scaffzap build-template
 
 ```
 
-## 🏢 Enterprise & Advanced Architecture
+## Enterprise & Advanced Architecture
 
 ### Monorepo Injection
 
