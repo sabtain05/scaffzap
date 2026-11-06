@@ -36,8 +36,8 @@ export async function aiScaffoldCommand(promptText: string) {
       fs.writeFileSync(fullPath, file.content, 'utf8');
     });
 
-    console.log(chalk.green.bold(`\n✅ Success! AI successfully scaffolded ${files.length} files.`));
+    console.log(chalk.green.bold(`\nSuccess! AI successfully scaffolded ${files.length} files.`));
   } catch (error) {
-    console.log(chalk.red(`\n❌ AI Generation failed. Please try a different prompt.`));
+    console.log(chalk.red(`\nAI Generation failed. Please try a different prompt.`));
   }
 }
