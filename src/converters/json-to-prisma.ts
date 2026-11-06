@@ -3,9 +3,19 @@ export function jsonToPrisma(data: any[], modelName = 'GeneratedModel'): string 
 
   const firstItem = data[0];
   let fields = '';
+  let relatedModels = '';
 
   for (const key in firstItem) {
     const val = firstItem[key];
+
+    if (typeof val === 'object' && val !== null && !Array.isArray(val)) {
+      const relationName = key.charAt(0).toUpperCase() + key.slice(1);
+      fields += `  ${key}Id Int\n`;
+      fields += `  ${key} ${relationName} @relation(fields: [${key}Id], references: [id])\n`;
+      relatedModels += `\n${jsonToPrisma([val], relationName)}`;
+      continue;
+    }
+
     let type = typeof val;
     let prismaType = 'String';
 
@@ -23,5 +33,5 @@ export function jsonToPrisma(data: any[], modelName = 'GeneratedModel'): string 
     fields += `  ${key} ${prismaType}${modifiers}\n`;
   }
 
-  return `model ${modelName} {\n${fields}}\n`;
+  return `model ${modelName} {\n${fields}}\n${relatedModels}`;
 }
